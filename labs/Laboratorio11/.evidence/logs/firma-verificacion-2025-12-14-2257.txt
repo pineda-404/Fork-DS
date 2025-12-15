@@ -1,0 +1,7 @@
+=== VERIFICACIÓN DE FIRMAS ===
+📦 Supply Chain Security Related artifacts for an image: ghcr.io/pineda-404/user-service:7af8092
+└── 🔗 https://sigstore.dev/cosign/sign/v1 artifacts via OCI referrer: ghcr.io/pineda-404/user-service@sha256:d8a5496720c52ef573e364f753d037dc926f5397fbfb1cd9e1e17b407b941af7
+   └── 🍒 sha256:22e7d8945a0e2b3e79e6cd09fa1ced5af4017e86a323c57cefd162e6c3853238
+📦 Supply Chain Security Related artifacts for an image: ghcr.io/pineda-404/order-service:7af8092
+No Supply Chain Security Related Artifacts found for image ghcr.io/pineda-404/order-service:7af8092,
+ start creating one with simply running$ cosign sign <img>

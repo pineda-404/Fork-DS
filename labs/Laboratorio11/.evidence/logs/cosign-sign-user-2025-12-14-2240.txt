@@ -1,0 +1,14 @@
+WARNING: Image reference ghcr.io/pineda-404/user-service:7af8092 uses a tag, not a digest, to identify the image to sign.
+    This can lead you to sign a different image than the intended one. Please use a
+    digest (example.com/ubuntu@sha256:abc123...) rather than tag
+    (example.com/ubuntu:latest) for the input to cosign. The ability to refer to
+    images by tag will be removed in a future release.
+
+Generating ephemeral keys...
+Non-interactive mode detected, using device flow.
+Enter the verification code QCDN-WKSV in your browser at: https://oauth2.sigstore.dev/auth/device?user_code=QCDN-WKSV
+Code will be valid for 300 seconds
+Token received!
+Signing artifact...
+Error: signing [ghcr.io/pineda-404/user-service:7af8092]: recursively signing: signing digest: Get "https://ghcr.io/v2/": context deadline exceeded
+error during command execution: signing [ghcr.io/pineda-404/user-service:7af8092]: recursively signing: signing digest: Get "https://ghcr.io/v2/": context deadline exceeded

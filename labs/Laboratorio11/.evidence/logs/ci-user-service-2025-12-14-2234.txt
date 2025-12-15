@@ -1,0 +1,57 @@
+SERVICE=user-service
+IMAGE=ghcr.io/pineda-404/user-service:7af8092
+K8S_IMAGE=ghcr.io/pineda-404/user-service:7af8092
+TAG=7af8092
+K8S_VERSION=v1.32.2
+[i] usando daemon de minikube para que el cluster vea la imagen
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.python-template
+#1 transferring dockerfile: 861B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 1.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/7] FROM docker.io/library/python:3.12-slim@sha256:fa48eefe2146644c2308b909d6bb7651a768178f84fc9550dcd495e4d6d84d01
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 561.60MB 5.0s
+#5 transferring context: 1.07GB 10.0s
+#5 transferring context: 1.71GB 15.0s
+#5 transferring context: 2.07GB 18.9s done
+#5 DONE 18.9s
+
+#6 [3/7] WORKDIR /app
+#6 CACHED
+
+#7 [4/7] COPY requirements.txt /app/requirements.txt
+#7 CACHED
+
+#8 [2/7] RUN set -eux;     rm -f /etc/apt/apt.conf.d/docker-clean || true;     apt-get update;     apt-get install -y --no-install-recommends curl ca-certificates;     rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [5/7] RUN pip install --no-cache-dir -r /app/requirements.txt || true
+#9 CACHED
+
+#10 [6/7] COPY . /app
+#10 DONE 3.8s
+
+#11 [7/7] RUN useradd -m app && chown -R app:app /app
+#11 DONE 7.7s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 5.6s done
+#12 writing image sha256:e883606942e84fa2e89dff366deeb5aa42fca6071d5d01579ca694d23c9e0c80 done
+#12 naming to ghcr.io/pineda-404/user-service:7af8092 done
+#12 DONE 5.6s
+[OK] build in-minikube -> ghcr.io/pineda-404/user-service:7af8092
+The push refers to repository [ghcr.io/pineda-404/user-service]
+An image does not exist locally with the tag: ghcr.io/pineda-404/user-service
+make: *** [Makefile:59: push] Error 1

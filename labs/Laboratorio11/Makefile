@@ -7,20 +7,21 @@ IMAGE_NAME ?= $(SERVICE)
 
 # Versión/recursos del cluster (puedes overridear con: make K8S_VERSION=v1.33.1 ...)
 K8S_VERSION ?= v1.32.2
-MINIKUBE_CPUS ?= 4
-MINIKUBE_MEMORY ?= 8192
+MINIKUBE_CPUS ?= 2
+MINIKUBE_MEMORY ?= 4086
 
 # Normalización del registry (sin booleanos que confundan a make) 
 # 1) strip espacios, 2) quita barra final, 3) arma repo si hay registry,
 # 4) sanea una barra inicial accidental (evita "/user-service:tag").
-REG_RAW      := $(strip $(IMAGE_REGISTRY))
-REG_NOSLASH  := $(patsubst %/,%,$(REG_RAW))
-IMAGE_REPO_0 := $(if $(REG_NOSLASH),$(REG_NOSLASH)/$(IMAGE_NAME),$(IMAGE_NAME))
-IMAGE_REPO   := $(patsubst /%,%,$(IMAGE_REPO_0))
+# NOTA: Usamos = (lazy) en vez de := para que se evalúen con el SERVICE correcto
+REG_RAW      = $(strip $(IMAGE_REGISTRY))
+REG_NOSLASH  = $(patsubst %/,%,$(REG_RAW))
+IMAGE_REPO_0 = $(if $(REG_NOSLASH),$(REG_NOSLASH)/$(IMAGE_NAME),$(IMAGE_NAME))
+IMAGE_REPO   = $(patsubst /%,%,$(IMAGE_REPO_0))
 
 TAG ?= $(shell (git rev-parse --short HEAD 2>/dev/null) || date +%Y%m%d%H%M%S)
-IMAGE := $(IMAGE_REPO):$(TAG)
-K8S_IMAGE := $(IMAGE_REPO):$(TAG)
+IMAGE = $(IMAGE_REPO):$(TAG)
+K8S_IMAGE = $(IMAGE_REPO):$(TAG)
 
 K8S_NS ?= default
 K8S_DIR := k8s/$(SERVICE)
@@ -48,9 +49,10 @@ env:
 .PHONY: build
 build:
 	@echo "[i] usando daemon de minikube para que el cluster vea la imagen"
-	@eval $$($(MINIKUBE) docker-env); set -e; \
-	$(DOCKER) build -t $(K8S_IMAGE) -f docker/Dockerfile.python-template .; \
-	echo "[OK] build in-minikube -> $(K8S_IMAGE)"
+	@export SERVICE=$(SERVICE) IMAGE_NAME=$(IMAGE_NAME) K8S_IMAGE=$(K8S_IMAGE); \
+	eval $$($(MINIKUBE) docker-env); set -e; \
+	$(DOCKER) build -t $$K8S_IMAGE -f docker/Dockerfile.python-template .; \
+	echo "[OK] build in-minikube -> $$K8S_IMAGE"
 
 .PHONY: push
 push:
@@ -102,12 +104,13 @@ endif
 .PHONY: k8s-prepare
 k8s-prepare:
 	@mkdir -p $(ARTIFACTS)
-	@if [ "$(SERVICE)" = "order-service" ]; then \
-	  sed -E 's|image:\s*[^[:space:]]+|image: $(K8S_IMAGE)|' $(K8S_DIR)/deployment-and-service.yaml > $(ARTIFACTS)/order-service.yaml; \
-	  echo "Manifest -> $(ARTIFACTS)/order-service.yaml"; \
+	@export SERVICE=$(SERVICE) K8S_IMAGE=$(K8S_IMAGE); \
+	if [ "$$SERVICE" = "order-service" ]; then \
+	  sed -E "s|image:\\s*[^[:space:]]+|image: $$K8S_IMAGE|" $(K8S_DIR)/deployment-and-service.yaml > $(ARTIFACTS)/order-service.yaml; \
+	  echo "Manifest -> $(ARTIFACTS)/order-service.yaml ($$K8S_IMAGE)"; \
 	else \
-	  sed -E 's|image:\s*[^[:space:]]+|image: $(K8S_IMAGE)|' $(K8S_DIR)/deployment-and-service.yaml > $(ARTIFACTS)/user-service.yaml; \
-	  echo "Manifest -> $(ARTIFACTS)/user-service.yaml"; \
+	  sed -E "s|image:\\s*[^[:space:]]+|image: $$K8S_IMAGE|" $(K8S_DIR)/deployment-and-service.yaml > $(ARTIFACTS)/user-service.yaml; \
+	  echo "Manifest -> $(ARTIFACTS)/user-service.yaml ($$K8S_IMAGE)"; \
 	fi
 
 .PHONY: minikube-up

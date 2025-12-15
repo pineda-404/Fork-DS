@@ -1,0 +1,11 @@
+=== FIRMAS COMPLETADAS - Sun Dec 14 10:59:00 PM -05 2025 ===
+
+USER-SERVICE:
+📦 Supply Chain Security Related artifacts for an image: ghcr.io/pineda-404/user-service:7af8092
+└── 🔗 https://sigstore.dev/cosign/sign/v1 artifacts via OCI referrer: ghcr.io/pineda-404/user-service@sha256:d8a5496720c52ef573e364f753d037dc926f5397fbfb1cd9e1e17b407b941af7
+   └── 🍒 sha256:22e7d8945a0e2b3e79e6cd09fa1ced5af4017e86a323c57cefd162e6c3853238
+
+ORDER-SERVICE:
+📦 Supply Chain Security Related artifacts for an image: ghcr.io/pineda-404/order-service:7af8092
+└── 🔗 https://sigstore.dev/cosign/sign/v1 artifacts via OCI referrer: ghcr.io/pineda-404/order-service@sha256:7b37f3656671501aefbdfa9c52470b572dc48aaaf6f8cd44a7e895bddb4dd5c9
+   └── 🍒 sha256:db0ef4924d7d37bb4015dda704c5b412b1f81ab60e9b3f3b8155d585f8881de1

@@ -1,0 +1,25 @@
+# Archivos grandes (imágenes Docker .tar - casi 2GB total)
+artifacts/*.tar
+.evidence/images/*.tar
+*.tar
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Docker
+.docker/
+
+# IDE y OS
+.vscode/
+.idea/
+.DS_Store
+
+# Credenciales (nunca subir)
+.env
+*.key
+*.pem
+cosign.key
+cosign.pub

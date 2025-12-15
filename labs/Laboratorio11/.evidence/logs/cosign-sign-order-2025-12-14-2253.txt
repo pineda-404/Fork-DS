@@ -1,0 +1,8 @@
+Generating ephemeral keys...
+Non-interactive mode detected, using device flow.
+Enter the verification code RRQZ-WCJQ in your browser at: https://oauth2.sigstore.dev/auth/device?user_code=RRQZ-WCJQ
+Code will be valid for 300 seconds
+Token received!
+Signing artifact...
+Error: signing [ghcr.io/pineda-404/order-service@sha256:d32d2458a47db1850a743c7f6b7d0be549bf7238dce94590e56662cda7293819]: signing digest: Get "https://ghcr.io/v2/": context deadline exceeded
+error during command execution: signing [ghcr.io/pineda-404/order-service@sha256:d32d2458a47db1850a743c7f6b7d0be549bf7238dce94590e56662cda7293819]: signing digest: Get "https://ghcr.io/v2/": context deadline exceeded
